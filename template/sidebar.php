@@ -6,9 +6,14 @@
                 <ul class="nav flex-column">
                     <?php 
                         foreach($query as $category) {
+                            if($getUrl == '/category.php?id='.$category['id']){
+                                $activeSidebar = 'active';
+                            } else{
+                                $activeSidebar = '';
+                            }
                             echo "
                             <li class=\"nav-item\">
-                                <a class=\"nav-link\" href=\"category.php?id={$category['id']}\">{$category['name']}</a>
+                                <a class=\"nav-link $activeSidebar\" href=\"category.php?id={$category['id']}\">{$category['name']}</a>
                             </li>".PHP_EOL;
                         }
                     ?>
@@ -18,8 +23,5 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled">Отключенная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Текущая</a>
                     </li>
                 </ul>

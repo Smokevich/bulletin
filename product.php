@@ -1,54 +1,41 @@
-<?php
-    require_once 'header.php';
+<?php 
+    require_once 'config.php'; 
+
     if(isset($_GET['id'])) {
         $productId = $_GET['id'];
-
-        $sql = "SELECT *, categories.name as category FROM product 
-                LEFT JOIN categories ON categoryID = categories.id
-                WHERE product.id = '$productID'";
-
+        $sql = "SELECT * FROM product WHERE id = '$productId'";
         $query = mysqli_query($dbConnect, $sql) or die(mysqli_error($dbConnect));
         $product = mysqli_fetch_assoc($query);
-        echo '<pre>';
-        var_dump($product);
-        echo '</pre>';
-        $category = $product['category'];
-
-    } else {
-        
+        if(is_array($product)) {
+            //Debug($product);
+        }
     }
 
+
+    $pageName = 'Купить NAME';
+    $pageDesc = 'Купить NAME дешево и с доставкой по всей России';
+
+    require_once 'template/header.php';
 ?>
     <div class="container create">
         <div class="row">
             <div class="col-xl-8">
-            <h2>Список последний объявлений</h2>
+            <h2>Купить <?=$product['name']?></h2>
                 <div class="row">
-                    <?php if(isset($query)) {
-                        foreach($query as $product) {
-                            $text = mb_strimwidth($product['text'], 0, 70, '...');
-                            echo "
-                            <div class=\"col-xl-4 cardproduct\">
-                                <div class=\"card\" style=\"width: 18rem;\">
-                                    <img src=\"{$product['image']}\" class=\"card-img-top\" alt=\"...\">
-                                    <div class=\"card-body\">
-                                        <h5 class=\"card-title\">{$product['name']}</h5>
-                                        <p class=\"card-text\">{$text}</p>
-                                        <h6 class=\"price\">{$product['price']} ₽</h6>
-                                        <a href=\"#\" class=\"btn btn-primary\">Перейти к товару</a>
-                                    </div>
-                                </div>
-                             </div>
-                            ";
-                        }
-                    }
-                    ?>
+                    <div class="col-xl-4">
+                        <img src="<?=$product['image']?>" class="img-thumbnail" alt="Купить <?=$product['name']?>">
+                        <button class="btn btn-primary col-xl-12 mt-3" type="button">Купить за <?=$product['price']?> ₽</button>
+                    </div>
+                    <div class="col-xl-8">
+                        <p>Было добавлено: <?=$product['timeAdd'] ?></p>
+                        <p><?=$product['text']?></p>
+                    </div>
+                    
                 </div>
             </div>
             <div class="col-xl-4">
-                <?php require_once 'sidebar.php' ?>
+                <?php require_once 'template/sidebar.php' ?>
             </div>
         </div>
     </div> 
-</body>
-</html>
+<?php require_once 'template/footer.php' ?>
