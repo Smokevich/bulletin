@@ -6,14 +6,14 @@
                 <ul class="nav flex-column">
                     <?php 
                         foreach($query as $category) {
-                            if($getUrl == '/category.php?id='.$category['id']){
+                            if($getUrl == '/category/'.$category['id']){
                                 $activeSidebar = 'active';
                             } else{
                                 $activeSidebar = '';
                             }
                             echo "
                             <li class=\"nav-item\">
-                                <a class=\"nav-link $activeSidebar\" href=\"category.php?id={$category['id']}\">{$category['name']}</a>
+                                <a class=\"nav-link $activeSidebar\" href=\"/category/{$category['id']}\">{$category['name']}</a>
                             </li>".PHP_EOL;
                         }
                     ?>

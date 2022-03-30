@@ -1,7 +1,7 @@
 <?php
     require_once 'config.php';
-    if(isset($_GET['id'])) {
-        $categoryId = $_GET['id'];
+    if(isset($match[1])) {
+        $categoryId = $match[1];
 
         $sql = "SELECT * FROM product 
                 WHERE categoryID = '$categoryId'";
@@ -51,7 +51,7 @@
                                         <p class=\"card-text\">{$productText}</p>
                                         <h6 class=\"price\">{$product['price']} ₽</h6>
                                         <div class=\"d-grid mt-3\">
-                                            <a href=\"product.php?id={$product['id']}\" class=\"btn btn-primary\">Перейти к объявлению</a>
+                                            <a href=\"/product/{$product['id']}\" class=\"btn btn-primary\">Перейти к объявлению</a>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                     }
                     ?>
                     <div class="col-xl-12 mt-3 d-grid">
-                        <a href ="create.php" class="btn btn-primary" type="button">Создать новое объявление в категории <?=$category['name']?></a>
+                        <a href ="/create" class="btn btn-primary" type="button">Создать новое объявление в категории <?=$category['name']?></a>
                     </div>
                 </div>
             </div>

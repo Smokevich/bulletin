@@ -1,8 +1,8 @@
 <?php 
     require_once 'config.php'; 
 
-    if(isset($_GET['id'])) {
-        $productId = $_GET['id'];
+    if(isset($match[1])) {
+        $productId = $match[1];
         $sql = "SELECT * FROM product WHERE id = '$productId'";
         $query = mysqli_query($dbConnect, $sql) or die(mysqli_error($dbConnect));
         $product = mysqli_fetch_assoc($query);
@@ -10,7 +10,6 @@
             //Debug($product);
         }
     }
-
 
     $pageName = 'Купить NAME';
     $pageDesc = 'Купить NAME дешево и с доставкой по всей России';
@@ -28,7 +27,7 @@
                     </div>
                     <div class="col-xl-8">
                         <p>Было добавлено: <?=$product['timeAdd'] ?></p>
-                        <p><?=$product['text']?></p>
+                        <p><?=nl2br($product['text'])?></p>
                     </div>
                     
                 </div>
